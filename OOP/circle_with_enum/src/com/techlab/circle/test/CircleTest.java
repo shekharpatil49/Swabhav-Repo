@@ -14,6 +14,8 @@ public class CircleTest {
 		System.out.println("Area is " + c.calculateArea());
 		System.out.println("Colour is " + c.getColor());
 		
+		
+		
 	}
 
 }
