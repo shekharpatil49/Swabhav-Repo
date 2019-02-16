@@ -45,6 +45,7 @@ public class ContactService {
 		}
 		
 	}
+
 	public String search(String name) {
 		if(sc.contains(name)) {
 			return name;
