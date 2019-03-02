@@ -17,6 +17,8 @@ public class TestEmployee {
 		System.out.println("EMP_NO "+emp.getEmp_No());
 		System.out.println("First Name " +emp.getfirstName());
 		System.out.println("Last Name "+emp.getlastName());
+		
 	}
+
 
 }

@@ -24,6 +24,8 @@ public class TestEmployee {
     	 System.out.println("Id "+emp.getId());
     	 System.out.println(emp.calculateTotalSalary());
     	 System.out.println("Date of Joining : "+(dateFormat.format(emp.getDate())));
+    	 System.out.println("Role is "+ emp.getClass().getSimpleName());
 	 
      }
+ 
 }
