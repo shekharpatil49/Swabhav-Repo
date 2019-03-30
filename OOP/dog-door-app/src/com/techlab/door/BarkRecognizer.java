@@ -1,14 +1,25 @@
 package com.techlab.door;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class BarkRecognizer {
 	
 	private DogDoor door;
 	public BarkRecognizer(DogDoor door) {
 		this.door=door;
 	}
-	public void recognizer(String bark) {
+	public void recognize(Bark bark) {
 		System.out.println("BarkRecognizer herd bark");
-		door.doorOpen();
+		List allowedBarks = door.getAllowedBarks();
+		for(Iterator i = allowedBarks.iterator();i.hasNext();) {
+			Bark allowedBark = (Bark)i.next();
+			if(allowedBark.equals(bark)) {
+				door.doorOpen();
+				return ;
+			}
+		}
+		door.doorClose();
 	}
 
 }
