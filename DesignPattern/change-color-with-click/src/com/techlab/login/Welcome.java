@@ -1,5 +1,12 @@
 package com.techlab.login;
 
-public class Welcome {
+import javax.swing.JFrame;
 
-}
+class Welcome extends JFrame
+{
+  Welcome()
+  {
+    setTitle("Welcome");
+     setSize(400, 200);
+  }
+ }

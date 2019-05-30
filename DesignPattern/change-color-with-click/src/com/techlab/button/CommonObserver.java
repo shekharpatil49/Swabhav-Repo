@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class CommonObserver implements ActionListener {
 	
@@ -20,6 +21,8 @@ public class CommonObserver implements ActionListener {
 		if (e.getSource() == win.getRed()) {
 
 			win.getContentPane().setBackground(Color.RED);
+			JFrame frame = new JFrame();
+		    frame.setVisible(true);
 			
 
 		}
