@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blue Ball</title>
+    <script src="angular.js"></script>
+
+
+
+</head>
+<script>
+
+    angular.module('myApp', [])
+        .controller('ButtonController', ['$scope', '$timeout', function ($scope, $timeout) {
+            $scope.randomNumber = Math.floor(Math.random() * 100 / 2);
+            console.log($scope.randomNumber);
+            $scope.btnColor = [];
+            $scope.number = [];
+            $scope.counter = 0;
+            $scope.btnDisabled = [];
+
+
+            for (let i = 1; i <= 50; i++) {
+                $scope.number.push(i);
+            }
+            for (let i = 1; i <= 51; i++) {
+                $scope.btnColor.push("Grey");
+                $scope.btnDisabled.push("false");
+            }
+            $scope.display = true;
+
+            $scope.isDisabled = false;
+            $scope.startGame = function () {
+
+                $scope.display = false;
+                $scope.startTimer();
+
+            }
+            $scope.timeCounter = 60;
+            var stopped;
+            $scope.startTimer = function () {
+                stopped = $timeout(function () {
+                    $scope.timeCounter--;
+                    $scope.startTimer();
+                }, 1000);
+
+                if ($scope.timeCounter == 0) {
+                    $timeout.cancel(stopped);
+                    $scope.isDisabled = true;
+
+                }
+
+            }
+
+            $scope.play = function (event) {
+                $scope.counter++;
+
+                if (parseInt(event.target.id) > $scope.randomNumber) {
+
+                    $scope.btnColor[parseInt(event.target.id)] = "green";
+                    this.btnDisabled = true;
+
+                }
+                if (parseInt(event.target.id) < $scope.randomNumber) {
+
+                    $scope.btnColor[parseInt(event.target.id)] = "red";
+                    this.isDisabled = true;
+
+                }
+                if (parseInt(event.target.id) == $scope.randomNumber) {
+                    $scope.btnColor[parseInt(event.target.id)] = "blue";
+                    $scope.isDisabled = true;
+                    $timeout.cancel(stopped);
+                    alert("Congratulations You Won!");
+
+                }
+                if ($scope.counter > 4) {
+                    $scope.isDisabled = true;
+                    $timeout.cancel(stopped);
+                    alert("You Exceeded All turns!");
+                }
+
+            }
+
+        }])
+</script>
+
+<body ng-app="myApp">
+    <div align="center " ng-controller="ButtonController">
+        <button ng-show="display" ng-click="startGame()">Start Game</button>
+        <div ng-show="display">
+            <h3> You will get 60 seconds to guess</h3><br>
+            <h3> You will get 5 Attemps</h3>
+            <h3> Red ball means you have guessed number higher that blue ball</h3>
+            <h3> Green ball means you have guessed number lower that blue ball</h3>
+
+        </div>
+
+
+        <div ng-hide="display">
+            <section align="left">No Of Attempts {{ counter }} 0:{{ timeCounter }} </section>
+            <button data-ng-click="play($event)" ng-repeat="i in number" id={{i}} ng-disabled="isDisabled" type="button"
+                style="height: 100px; width: 100px;line-height: 50px;border: 3px solid black;border-radius: 50%;color: black;text-align: center;text-decoration: none;box-shadow: 0 0 3px gray;font-size: 20px;font-weight: bold;float: left;background:{{ btnColor[i] }};
+                    ">{{i}}</button>
+        </div>
+
+    </div>
+</body>
+
+</html>

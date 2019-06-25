@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .footer{
+            bottom: 0;
+            position: fixed;
+
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.js"></script>
+    <script>
+        var app = angular.module("myApp", [])
+            .controller("directoryController", ['$scope', function ($scope) {
+                $scope.students = [{
+                id: 1,
+                name: "R",
+                image: "Demo_267840.png",
+                cgpa: 5.2
+            }, {
+                id: 2,
+                name: "S",
+                image: "Demo_267840.png",
+                cgpa: 8.2
+            }
+                , {
+                id: 3,
+                name: "B",
+                image: "Demo_267840.png",
+                cgpa: 6.2
+
+            },
+            {
+                id: 4,
+                name: "V",
+                image: "Demo_267840.png",
+                cgpa: 9.2
+
+            },
+            {
+                id: 5,
+                name: "M",
+                image: "Demo_267840.png",
+                cgpa: 8.9
+
+            }
+            ]
+        
+
+            }])
+            .directive('myAurionproHeader', function () {
+                return {
+                    template: '<header><h1>This is header</h1></header>'
+                }
+            })
+            .directive('studentTableData',function(){
+                return{
+                    template:'<table><tr><th>ID</th><th>Name</th><th>CGPA</th></tr><tr ng-repeat="x in students"> <td>{{ x.id }}</td><td>{{ x.name }}</td><td>{{ x.cgpa }}</td></tr>'
+                }
+            })
+            .directive("myAurionproFooter", function () {
+                return {
+                    template: '<footer><div class="footer"> This is footer</div></footer>'
+                }
+            })
+
+
+ 
+    </script>
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="directoryController">
+        <my-aurionpro-header></my-aurionpro-header>
+        <student-table-data></student-table-data>
+        <my-aurionpro-footer></my-aurionpro-footer>
+    </div>
+
+
+</body>
+
+</html>

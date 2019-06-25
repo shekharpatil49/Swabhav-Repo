@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+    </body>
+    <script>
+       
+        var dataService= function(){
+            var obj={}
+            obj.getData=function(){
+                var r = Math.random()*10;
+                return r;
+            }
+            obj.getDataSyn=function(callback){
+                setTimeout(function(){
+                    var r = Math.random()*100;
+                    callback(r);
+                },0);
+            }
+            obj.cubeNoASyn=function(no,resultCallback){
+                setTimeout(function(){
+                    var number = no*no*no;
+                    resultCallback(number);
+                },0);
+            }
+            return obj;
+        }();
+
+        var data = dataService.getData();
+        console.log(data);
+        dataService.getDataSyn(function(d){
+            console.log("callback");
+            console.log(d);
+            dataService.cubeNoASyn(d,function(d){
+            console.log("Resultcallback");
+            console.log(d);
+            });
+        });
+        
+        console.log("end of script");
+      
+    </script>
+</html>

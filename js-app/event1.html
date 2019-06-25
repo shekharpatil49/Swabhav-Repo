@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        <input id="btn" type="button" value="click" />
+
+        <script>
+         
+         (function () {
+
+           let elem = document.querySelector('#btn');
+            
+           elem.addEventListener("click",myFunction1);
+           elem.addEventListener("click",myFunction2);
+           function myFunction1(){
+               console.log("1st listener call");
+           }
+           function myFunction2(){
+               console.log("2nd listener call");
+           }
+
+        
+         })();
+
+        </script>
+
+    </body>
+</html>

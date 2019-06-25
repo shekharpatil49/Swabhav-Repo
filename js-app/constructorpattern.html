@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <body>
+       
+    </body>
+    <script>
+
+        function Customer(id,fname,lname){
+            this.id=id;
+            this.fname=fname;
+            this.lname=lname;
+            this.getDetails = function(){
+                return this.id + " " + this.fname+" "+ this.lname;
+            }
+        }
+        var c1 = new Customer(101,"abc","pqr");
+        console.log(c1.getDetails());
+        c1.id=100;
+        console.log(c1);
+        var c2 = new Customer(102,"def","lmn");
+        console.log(c2);
+        console.log(c2.getDetails());
+
+
+    </script>
+    <script>
+
+           function Student(){
+               var _rollno,_name;
+               console.log(this);
+               this.setRollno=function(rollno){
+                   if(rollno>0){
+                       _rollno=rollno;
+                   }
+               }
+               this.getRollno=function(){
+                   return _rollno;
+               }
+               this.setName=function(name){
+                   if(name.length>1){
+                       _name=name;
+                   }
+               }
+               this.getName=function(){
+                   return _name;
+               }
+               }
+               var s1 = new Student();
+               s1.setRollno(101);
+               s1.setName("fname");
+               console.log(s1._name);
+
+               var s2 = new Student();
+               s2.setName("fname");
+               console.log(s2);
+               var s3 = Student();
+           
+    
+        </script>
+    </html>

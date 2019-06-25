@@ -1,0 +1,36 @@
+<div style="border: 1px groove rgb(151,174,243); border-radius: 5px;border-top-width:thin">
+    <p style="background-color: rgb(151,174,243);color:white;font-family:Verdana;font-size: 20px">Product Details:
+        {{ productName1 }}</p>
+
+    <div style="width: 100%; height: 100%; font-size: 30">
+        <br>
+        <div style="width: 40%; height: 100% ;float: left;">
+            <div>
+                name: {{ productName1}}
+            </div>
+            <div>
+                code : {{ productCode}}
+            </div>
+            <div>
+                description: {{ description}}
+            </div>
+            <div>
+                availabilty: {{ releaseDate}}
+            </div>
+            <div>
+                price: {{ price}}
+            </div>
+            <div>
+                5 star rating: {{  starRating }}<star ng-bind-html=" starRating | Starfilter"></star>
+            </div>
+        </div>
+        <div style="width: 40%; height: 100% ;float:right;">
+            <center><img src="{{ imageUrl }}" width="100px" height="130"></center>
+        </div><br><br><br><br><br><br><br><br>
+
+
+        <p style="background-color: rgb(151,174,243);color:white;font-family:Verdana;font-size: 20px;">
+            <button><a href="#!/productlist">Back </a></button> </p>
+    </div>
+
+</div>

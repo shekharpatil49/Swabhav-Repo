@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="questionstyle.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+</head>
+
+<body>
+        <canvas id = "myColoredChart" width="300" height="100"></canvas>
+        <p id = "answer_area" align="center" style="color:red;"></p>
+    <p align="left">
+        <button id="startButton" class="button"><span>Start </span></button>
+    </p>
+    <div id="outer-div" class="outer-div">
+        <h3>
+            <p align="center" style="color:red;">Questions</p>
+        </h3>
+        
+        
+        <div id="inner-div" class="inner-div"><br>
+           
+            <h3 id="question_id"> </h3>
+            <label id="option1" class="container">
+            </label><br><br>
+            <label id="option2" class="container">
+            </label><br><br>
+            <label id="option3" class="container">
+            </label><br><br>
+            <label id="option4" class="container">
+            </label><br><br><br>
+            <p align="right" id="questionAttemp_id"></p>
+        </div>
+    </div>
+    <p align="right">
+        <button id="nextButton" class="button"><span>next </span></button>
+    </p>
+</body>
+<script src="questionscript.js">
+</script>
+
+</html>

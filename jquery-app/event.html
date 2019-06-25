@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.4.1.js"></script>
+    <script>
+        (function () {
+            $(document).ready(() => {
+                $('#inputbox').keyup(function () {
+                    $('#paragraph').text($(this).val().toUpperCase());
+                })
+                $('#fontID').keyup(function () {
+                    $('#paragraph').css({ "font-size": "" + $(this).val() + "px" })
+                })
+                var colors = ['blue', 'red', 'green', 'yellow'];
+                var str = "";
+                for (var i = 0; i < colors.length; i++) {
+                    str = str + "<option value=" + colors[i] + ">" + colors[i] + "<option>"
+                    console.log(str);
+                }
+                document.getElementById("fGColor").innerHTML = "<select>" + str + "</select>";
+                $('#fGColor').html('Choose ForegroundColor Color <select id="frontColor">' + str + "</select>");
+                document.getElementById("bgColor").innerHTML = "<select>" + str + "</select>";
+                $('#bgColor').html('Choose Backgroud Color <select id="backColor">' + str + "</select>");
+                $('#frontColor').change(()=>
+                {
+                let color=$('#frontColor').val();
+                console.log(color);
+                $('#paragraph').css("color",color);
+                });
+                $('#backColor').change(()=>
+                {
+                let color=$('#backColor').val();
+                console.log(color);
+                $('#paragraph').css("background-color",color);
+                });
+            })
+
+        })();
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="inputbox" type="text"></input>
+        <input id="fontID" type="number"> </input>
+        <span id="fGColor"></span>
+        <span id="bgColor"></span>
+    </div>
+    <div>
+        <p id="paragraph" align="left"></p>
+    </div>
+</body>
+
+</html>

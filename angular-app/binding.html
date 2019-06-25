@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.js"></script>
+    <script>
+    angular.module('myApp', [])
+    .controller('viewController',function($scope){
+        $scope.student = {
+                    id: 1,
+                    name: "Ram",  
+                    cgpa: 8.2
+                }
+            console.log("Controller");
+    })
+    </script>
+    <title>Binding</title>
+    </head>
+
+   <body ng-app="myApp">
+     <div ng-controller='viewController'>
+    <section >
+        <h1>One Way Controller</h1>
+        Name : {{ student.name }}
+        ID : {{ student.id }}
+        CGPA : {{ student.cgpa }}
+    </section>
+    <hr>
+    <section>
+        <h1>Two Way Controller </h1>
+        Name : <input type="text" ng-model="student.name">
+        ID :<input type="number" ng-model ="student.id">
+        CGpA :<input type="number" ng-model ="student.cgpa">
+
+    </section>
+    <hr>
+    <section >
+            <h1>One Time Controller </h1>
+            Name : {{ ::student.name }}
+            ID : {{ ::student.id }}
+            CGPA : {{ ::student.cgpa }}
+
+    </section>
+</div>
+
+
+
+</body>
+
+</html>

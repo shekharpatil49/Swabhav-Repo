@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        Student Count&nbsp&nbsp&nbsp<span id="span_id" class="label label-info">Info</span>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="roll_no" class="col-sm-2 control-label">Roll_No</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="roll_no" placeholder="Roll_No">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age" class="col-sm-2 control-label">Age</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="age" placeholder="Age">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date" class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="date" placeholder="Date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="male" value="option1"> Male
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="inlineRadioOptions" id="female" value="option2"> Female
+                </label>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="add" class="btn btn-default">Add Data</button>
+                    <button type="button" id="update" class="btn btn-default">Update Data</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div id="table">
+
+    </div>
+</body>
+<script src="dataservices.js"></script>
+<script>
+
+
+    $(document).ready(() => {
+        var index = 0;
+
+        var studentInfo = [];
+        function loadDataFromURL() {
+            fetchDataFromURL().then((r) => {
+                studentInfo = r;
+                $('#span_id').text(r.length);
+                displayData();
+            });
+        }
+
+        loadDataFromURL();
+
+        var displayData = () => {
+            var tableHeading = '<table class="table table-dark"><thead><tr><th scope="col">ID</th><th scope="col">Roll_No</th><th scope="col">Name</th><th scope="col">Age</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col">Gender</th><th scope="col">Delete</th><th scope="col">Edit</th></tr></thead><tbody>'
+            console.log(typeof studentInfo[0].rollNo);
+            console.log(studentInfo);
+            let str = "";
+            for (var i = 0; i < studentInfo.length; i++) {
+                if (studentInfo[i].isMale) {
+                    str += '<tr id="' + studentInfo[i].id + '"><td>' + studentInfo[i].id + '</td><td>' + studentInfo[i].rollNo + '</td><td>' + studentInfo[i].name + '</td><td>' + studentInfo[i].age + '</td><td>' + studentInfo[i].email + '</td><td>' + studentInfo[i].date + '</td><td>Male</td><td><button class="btnDelete" id="deletebtn' + i + '"><span class="glyphicon glyphicon-trash"></span></button></td><td><button class="btnEdit" id="editbtn' + i + '"><span class="glyphicon glyphicon-pencil"></span></button></td></tr>';
+                } else {
+                    str += '<tr id="' + studentInfo[i].id + '"><td>' + studentInfo[i].id + '</td><td>' + studentInfo[i].rollNo + '</td><td>' + studentInfo[i].name + '</td><td>' + studentInfo[i].age + '</td><td>' + studentInfo[i].email + '</td><td>' + studentInfo[i].date + '</td><td>Female</td><td><button class="btnDelete" id="deletebtn' + i + '"><span class="glyphicon glyphicon-trash"></span></button></td><td><button class="btnEdit" id="editbtn' + i + '"><span class="glyphicon glyphicon-pencil"></span></button></td></tr>';
+                }
+            }
+            $('#table').html(tableHeading + str + '</tbody></table>');
+
+            $('.btnDelete').click(function () {
+                if (confirm("Do you want to delete")) {
+                    if (confirm("Do you really want to delete")) {
+                        if (confirm("Do you really really want delete")) {
+                            if (confirm("Are you sure")) {
+                                let id = ($(this).parent().parent().attr("id"));
+                                deteleMyDataFromURL(id).then(() => {
+                                    console.log("reached");
+                                    loadDataFromURL();
+                                });
+
+                                loadDataFromURL();
+                                console.log("Hello");
+                            }
+                        }
+                    }
+                }
+
+
+
+            })
+
+            $('.btnEdit').click(function () {
+                $('#add').attr('disabled', true);
+                let strID = this.id;
+                let getIdOfBtn = strID.split("btn");
+                index = parseInt(getIdOfBtn[1]);
+                $("#roll_no").val(studentInfo[index].rollNo);
+                $("#name").val(studentInfo[index].name);
+                $("#age").val(studentInfo[index].age);
+                $("#email").val(studentInfo[index].email);
+                $("#date").val(studentInfo[index].date);
+                if (studentInfo[index].isMale) {
+                    $("#male").attr('checked', true);
+                } else {
+                    $("#female").attr('checked', true);
+                }
+
+
+
+
+            })
+
+        }
+
+        $('#add').click(function () {
+            let isMale = false;
+            if (document.getElementById("male").checked == true) {
+                isMale = true;
+            }
+            else {
+                isMale = false;
+            }
+
+            let obj = {
+                "rollNo": parseInt($('#roll_no').val()),
+                "name": $('#name').val(),
+                "age": parseInt($('#age').val()),
+                "email": $('#email').val(),
+                "date": $('#date').val(),
+                "isMale": isMale
+            }
+            if(obj.rollNo==""||obj.name==""||obj.age==""|obj.email==""||obj.isMale==false){
+                alert("please fill details properly");
+                return;
+            }
+         
+            console.log(typeof $('#roll_no').val());
+            console.log(obj);
+            postMyDataToURL(obj).then(() => {
+                loadDataFromURL();
+            });
+            loadDataFromURL();
+        
+        });
+
+        $('#update').click(function () {
+            
+            let isMale = false;
+            if (document.getElementById("male").checked == true) {
+                isMale = true;
+            }
+            else {
+                isMale = false;
+            }
+            id = studentInfo[index].id;
+            console.log(typeof id);
+            let obj = {
+                "rollNo": parseInt($('#roll_no').val()),
+                "name": $('#name').val(),
+                "age": parseInt($('#age').val()),
+                "email": $('#email').val(),
+                "date": $('#date').val(),
+                "isMale": isMale
+            }
+
+            updateData(id, obj).then(() => {
+                loadDataFromURL();
+            });
+
+            loadDataFromURL();
+
+
+        });
+
+
+    });
+</script>
+
+</html>

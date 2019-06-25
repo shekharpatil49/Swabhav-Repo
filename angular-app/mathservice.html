@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MathsService</title>
+    <script src="angular.js"></script>
+
+    <script>
+        angular.module('myApp', [])
+            .factory('MathsService', ['$log', function ($log) {
+                $log.info("inside Math Service");
+                var obj = {};
+                
+
+                obj.generatePrime = function (no) {
+                    var primeNumberArray = [];
+                    var flag;
+                    for(var i=2;i<no;i++){
+                        flag=0;
+                        for(var j=2;j<=i/2;j++){
+                            if(i%j==0){
+                                flag=1;
+                                break;
+                            }
+                        }
+                        if(flag==0){
+                            primeNumberArray.push(i);
+                        }
+                    }
+                   
+                    return primeNumberArray;
+
+                }
+                obj.cubeEven = function (no) {
+                    var evenNumbersArray = []
+                    for (var i = no; i > 0; i--) {
+                        if (i % 2 == 0) {
+                            evenNumbersArray.push(i);
+                        }
+                    }
+                    return evenNumbersArray;
+
+                }
+                return obj;
+            }])
+
+            .controller('primeNoController', ['$scope', 'MathsService', function ($scope, MathsService) {
+
+
+                $scope.primeNumber = function () {
+                    $scope.primeArray = MathsService.generatePrime($scope.no);
+                    console.log();
+
+                };
+
+            }])
+            .controller('evenNoController', ['$scope', 'MathsService', function ($scope, MathsService) {
+
+
+                $scope.evenNumber = function () {
+                    $scope.evenNoArray = MathsService.cubeEven($scope.no);
+                    console.log($scope.no);
+                    console.log($scope.evenNoArray);
+                };
+
+
+
+            }])
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="primeNoController">
+        <input type="number" ng-model="no">
+        <button ng-click="primeNumber()" btn="primebtn">generatePrime</button>
+        <div ng-repeat ="x in primeArray">
+            {{ x }}
+        </div>
+
+    </div>
+    <div ng-controller="evenNoController">
+        <input type="number" ng-model="no">
+        <button ng-click="evenNumber()" btn="evenbtn">generateEvenNumbers</button>
+        <div ng-repeat ="x in evenNoArray">
+                {{ x }}
+            </div>
+
+    </div>
+
+</body>
+
+</html>

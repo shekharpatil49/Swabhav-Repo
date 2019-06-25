@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            var promise=new Promise((resolve,rejected) => {
+                var division=8/3;
+                if(division==4){
+                    resolve("Success")
+                }
+                else{
+                   rejected("Failed")
+                }
+            })
+            promise.then((message)=>{
+                console.log("inside then:"+message)
+            }).catch((message)=>{
+                console.log("inside then with error :"+message)
+            })
+            </script>
+
+    </body>
+</html>

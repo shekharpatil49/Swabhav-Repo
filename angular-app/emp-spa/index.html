@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/empservice.js"></script>
+    <script src="app/homeController.js"></script>
+    <script src="app/addController.js"></script>
+    <script src="app/editController.js"></script>
+    <script src="app/loginController.js"></script>
+    
+    <title>Emp App</title>
+</head>
+<body ng-app="empApp">
+    <div ng-controller="loginController">
+    <nav class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li><a href="#!/">Home</a></li>
+            <li ng-show="adminFlag"><a href="#!/add">Add</a></li>
+           
+            <li ng-hide="showlogin" ><a href="#!/login">login</a></li>
+             <li ng-show="showlogin" ng-click="display()"><a href="#!/">logIned As: {{ userName }}  logout</a></button></li>
+        
+        </ul>
+    </nav>
+</div>
+    <div ng-view></div>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    <script>
+        angular.module('modA', ['modB', 'modC'])
+            .controller('ControllerA', function ($scope, $injector) {
+                console.log($scope);
+                console.log($injector);
+                $scope.message = "Hello message by controller A"
+            })
+        angular.module('modB', [])
+            .controller('ControllerB', function ($scope, $injector) {
+                console.log($scope);
+                console.log($injector);
+                $scope.message = "Hello message by controller B"
+            })
+        angular.module('modC', [])
+            .controller('ControllerC', function ($scope, $injector) {
+                console.log($scope);
+                console.log($injector);
+                $scope.message = "Hello message by controller C"
+            })
+    </script>
+</head>
+
+<body ng-app="modA">
+    <section ng-controller="ControllerA">
+        {{ message }}
+    </section>
+    <section ng-controller="ControllerB">
+        {{ message }}
+    </section>
+    <section ng-controller="ControllerC">
+        {{ message  }}
+    </section>
+
+</body>
+
+</html>

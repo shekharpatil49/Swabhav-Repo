@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> JavaScript Stop Watch </title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <h2><time>00:00:00</time></h2>
+    <button id="start">START</button><br>
+
+    <button id="stop">STOP</button><br>
+    <button id="clear">RESET</button>
+</body>
+<script>
+    (function () {
+        var h1 = document.getElementsByTagName('h2')[0],
+            start = document.getElementById('start'),
+            stop = document.getElementById('stop'),
+            clear = document.getElementById('clear'),
+            seconds = 0, minutes = 0, hours = 0,
+            t;
+
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+            var displayStr = "";
+            if(hours){
+                if(hours>9){
+                    displayStr= displayStr + hours + ":";
+                }else{
+                    displayStr= displayStr + "0"+hours + ":";
+                }
+            }
+            else{
+                displayStr= displayStr + "00" +":";
+            }
+            if(minutes){
+                if(minutes>9){
+                    displayStr= displayStr + minutes + ":";
+                }else{
+                    displayStr= displayStr + "0"+ minutes + ":";
+                }
+            }
+            else{
+                displayStr= displayStr + "00" +":";
+            }
+            if(seconds>9){
+                    displayStr= displayStr + seconds ;
+                }else{
+                    displayStr= displayStr + "0" + seconds;
+                }
+                h1.textContent=displayStr;
+            timer();
+        }
+        function timer() {
+            t = setTimeout(add, 1000);
+        }
+        timer();
+
+
+
+        start.onclick = timer;
+
+        stop.onclick = function () {
+            clearTimeout(t);
+        }
+
+        clear.onclick = function () {
+            h1.textContent = "00:00:00";
+            seconds = 0; minutes = 0; hours = 0;
+        }
+    })();
+</script>
+
+</html>

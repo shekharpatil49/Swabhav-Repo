@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Global Page </h1>
+       
+        <script>
+
+            var foo;
+            console.log(typeof foo);
+            foo=10;
+            console.log(typeof foo);
+            foo ="Hello";
+            console.log(typeof foo);
+            foo = true;
+            console.log(typeof foo);
+            foo={ };
+            foo.bar="This is bar";
+            var c1=20;
+           function example() {
+                 c1=10;
+                 
+            };
+            example() ;
+            console.log(c1);
+            console.log(foo);
+            console.log(foo['bar']);
+            console.log(window);
+            console.log(typeof window);
+            console.log(window.foo);
+            console.log(typeof window.foo);
+            console.log(window.document);
+            console.log(typeof window.document);
+            console.log(window.console);
+            console.log(typeof window.console);
+            console.log(this==window);
+            document.write("Hello World!");
+
+        </script>
+
+    </body>
+</html>

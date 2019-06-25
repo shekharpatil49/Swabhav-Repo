@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    
+    <script>
+
+        var app = angular.module("studentApp", []);
+      
+        app.controller("studentController", function ($scope, $timeout) {
+            $scope.students = [{
+                id: 1,
+                name: "Ram",
+                image: "Demo_267840.png",
+                cgpa: 5.2
+            }, {
+                id: 2,
+                name: "Sham",
+                image: "Demo_267840.png",
+                cgpa: 8.2
+            }
+                , {
+                id: 3,
+                name: "Bramha",
+                image: "Demo_267840.png",
+                cgpa: 6.2
+
+            },
+            {
+                id: 4,
+                name: "Vishnu",
+                image: "Demo_267840.png",
+                cgpa: 9.2
+
+            },
+            {
+                id: 5,
+                name: "Mahesh",
+                image: "Demo_267840.png",
+                cgpa: 8.9
+
+            }
+            ]
+        
+        })
+        app.filter('setColors' , function () {
+              return function(x){
+                
+                if( x>9 && x<10){
+                 return "green";   
+                 
+                }
+                else if( x>8){
+                 return  "blue";
+                  
+                }
+                else if( x>7 ){
+                 return "yello";    
+                }
+                else  if( x>6  ){
+                 return "red";    
+                }
+                
+
+                }
+            });
+    </script>
+</head>
+
+<body ng-app="studentApp">
+    <div ng-controller="studentController" border="1">
+        <div ng-repeat="x in students "  style='background-color: {{x.cgpa | setColors}} '>
+           ID: {{x.id}}
+           
+           Name: {{x.name}}
+           
+           CGPA: {{x.cgpa }}
+           
+        <img alt="" width="193" height="130" ng-src="{{ x.image }}" /></img>
+        </div>
+    </div>
+
+</body>
+
+</html>

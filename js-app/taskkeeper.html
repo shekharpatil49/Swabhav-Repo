@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        div {
+            height: 50%;
+            width: 50%;
+            background-color: powderblue;
+        }
+
+        ol {
+            background: #ff9999;
+            padding: 20px;
+        }
+
+        ol li {
+            background: #ffe5e5;
+            padding: 5px;
+            margin-left: 35px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <p align="center">
+            <h3 align="center">Task Manager</h3>
+            <input type="text" id="userInput">
+            <button id="taskAdder"> Add </button><br>
+        </p>
+
+
+        <label id="high" class="container">high<input id="myRadio1" type="radio" name="radio"><span
+                class="checkmark"></span>
+        </label>
+        <label id="medium" class="container">medium<input id="myRadio2" type="radio" name="radio"><span
+                class="checkmark"></span>
+        </label>
+        <label id="low" class="container">low<input id="myRadio3" type="radio" name="radio"><span
+                class="checkmark"></span>
+        </label>
+
+        </label><br><br><br>
+    </div>
+    <br>
+    
+    <div id="listAdder">
+            
+        <li><input type="checkbox"><label>Pay Bills</label><button class="delete">Delete</button></li>
+        <li><input type="checkbox"><label>Pay Bills</label><button class="delete">Delete</button></li>
+    </div>
+    <p align="left" ><button id="completebtn">Complete</button><button id="sortbtn">Sort</button> 
+        <select id="priority_id">
+            
+            <option id ="high_id" value="high">High to Low</option>
+            <option id="low_id" value="low">Low to High</option> 
+            </select>   
+               
+        </p>
+</body>
+<script src="taskkeeper.js">
+</script>
+
+</html>

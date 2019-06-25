@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <body>
+          
+            <input id="btn1" type="button" value="hello" />
+            <input id="btn2" type="button" value="exit" />
+
+        <script>
+
+        (function() {
+
+            let elem1 = document.querySelector('#btn1');
+            let elem2 = document.querySelector('#btn2');
+            elem1.addEventListener("click",myFunction);
+            elem2.addEventListener("click",myFunction);
+
+            function myFunction(){
+                if(document.querySelector('#btn1')==this){
+                    alert("Hello")
+                    return;
+                }
+                if(document.querySelector('#btn2')==this){
+                    alert("Exit")
+                }
+            }
+        
+          
+        })();
+
+        </script>
+
+    </body>
+</html>

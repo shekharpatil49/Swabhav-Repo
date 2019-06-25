@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Number Fact</title>
+    <script src="angular.js"></script>
+    <script>
+        angular.module('myApp', [])
+            .factory('NumberService', ['$q', '$http', function ($q, $http) {
+                var obj = {};
+                obj.generateFact = function (no) {
+                    
+                    return $q((resolve, reject) => {
+                        if (no) {
+                            $http.get("http://numbersapi.com/" + no)
+                                .then(function (response) {
+                                    resolve(response.data);
+                                })
+                        } else {
+                            reject({ error: 'Error' });
+                        }
+                    })
+                }
+                return obj;
+            }])
+            .controller('numberFactController', ['$scope', 'NumberService', function ($scope, NumberService) {
+                $scope.displayFact = function () {
+                    console.log($scope.no);
+                    NumberService.generateFact($scope.no)
+                        .then((r) => {
+                            console.log(r);
+                            $scope.res = r;
+                        });
+                }
+            }])
+
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="numberFactController">
+        <input type="number" ng-model="no"></input>
+        <button ng-click="displayFact()">Display</button>
+        <section>
+            {{ res }}
+        </section>
+    </div>
+
+</body>
+
+</html>

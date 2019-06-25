@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MathsASynchronusService</title>
+    <script src="angular.js"></script>
+
+    <script>
+        angular.module('myApp', [])
+            .factory('MathsASynchronusService', ['$log', '$q', function ($log, $q) {
+                $log.info("inside Math Service");
+                var obj = {};
+
+                obj.cubeEven = function (no) {
+
+                    return $q((resolve, reject) => {
+
+                        if (no % 2 == 0) {
+                            resolve(true);
+                        } else {
+                            reject({ error: 'Not Even' });
+                        }
+                    });
+                }
+                return obj;
+            }])
+            .controller('evenNoController', ['$scope', 'MathsASynchronusService', function ($scope, MathsASynchronusService) {
+
+
+                $scope.evenNumber = /*async*/ function () {
+                  
+                  
+                   /* $scope.response = await MathsASynchronusService.cubeEven($scope.no)
+                    console.log($scope.response);
+                    $scope.$apply();*/
+
+                
+                    MathsASynchronusService.cubeEven($scope.no)
+                    .then((r)=>{
+                        $scope.response=r;  
+                    })
+
+                };
+
+
+
+            }])
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="evenNoController">
+        <input type="number" ng-model="no">
+        <button ng-click="evenNumber()" btn="evenbtn">generateEvenNumbers</button>
+        <div ng-repeat="x in evenNoArray">
+            {{ x }}
+        </div>
+        <section>
+            {{ response }}
+        </section>
+
+    </div>
+
+</body>
+
+</html>

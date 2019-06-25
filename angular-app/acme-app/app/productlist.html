@@ -1,0 +1,29 @@
+
+<div style="border: 1px groove rgb(151,174,243); border-radius: 5px;border-top-width:thin">
+ <p style="background-color: rgb(151,174,243);color:white;font-family:Verdana;font-size: 20px">
+Product List</p>
+    Search Product: <input type="text" ng-model="searchProduct"><br>
+
+    <span ng-show="searchProduct">Filtered By:<label>{{ searchProduct }}</label></span>
+    <table class="table">
+
+        <tr class="danger">
+            <th><button ng-hide="displayImage" ng-click="displayImg()">Show Image</button><button ng-show="displayImage" ng-click="displayImg()">Hide Image</button></th>
+            <th>Product</th>
+            <th>Code</th>
+            <th>Available</th>
+            <th>Price</th>
+            <th>Five Star Rating</th>
+        </tr>
+        <tr ng-repeat="x in productArray | filter: searchProduct ">
+            <td><img ng-show="displayImage" src="{{ x.imageUrl}}" width="100px" height="100"></td>
+            <td><a ng-click="displayDetails($index)" href="#!/productdetails" >{{ x.productName }}</a></td>
+            <td>{{ x.productCode }}</td>
+            <td>{{ x.releaseDate }}</td>
+            <td>{{ x.price }}</td>
+            <td>{{ x.starRating }}<star ng-bind-html="x.starRating | Starfilter"></star></td>
+
+        </tr>
+
+    </table>
+</div>

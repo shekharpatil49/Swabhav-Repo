@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+</body>
+<script>
+    var Swabhav = (function () {
+        var obj = {};
+        obj.cubeEven = function (number) {
+            if (number % 2 == 0) {
+                return number * number * number;
+            }
+        }
+        obj.isPrime = function (number) {
+            var limit = number / 2;
+            for (var i = 2; i < limit; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return obj;
+    })();
+    console.log(Swabhav.cubeEven(2));
+    console.log(Swabhav.isPrime(7));
+</script>
+</html>
+

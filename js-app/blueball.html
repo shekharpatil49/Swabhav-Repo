@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .wrapper {
+        text-align: right;
+        display: inline;
+
+    }
+
+    .wrap {
+        text-align: left;
+    }
+
+
+    button {
+        width: 50px;
+        height: 50px;
+        background: #b6bbb7;
+        margin: 10px;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        border-radius: 50%;
+
+    }
+
+    .button1 {
+        background-color: #4CAF50;
+
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+    }
+
+    .wrapper1 {
+        text-align: center;
+        display: block;
+    }
+
+
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <p id="counter"></p>
+    </div>
+    <div class="wrap">
+        <p id="attemp">Attemps remains :</p>
+    </div>
+
+    <div class="wrapper1" id="div1">
+        <button id="btn1" class="button1 button2">Start</button>
+        <p>
+            ******* Rules *******<br><br>
+            *You have to recognize Blue Ball.<br><br>
+            *You have only 5 guesses.<br><br>
+            *Red color indicate that value is lesser than your guess.<br><br>
+            *Green color indicate that value is greater than your guess.<br><br>
+            *You have only 60 seconds to guess.
+        </p>
+    </div>
+
+    <script>
+        let elem = document.querySelector('#btn1');
+
+
+        elem.addEventListener("click", myFunction);
+        function myFunction() {
+
+            document.getElementById('div1').style.display = "none";
+
+            var random_number = (Math.random(10) / 2) * 100;
+            var number = Math.floor(random_number);
+            console.log(number);
+            function countdown(minutes) {
+                var seconds = 60;
+                var mins = minutes
+                function tick() {
+
+                    var counter = document.getElementById("counter");
+                    var current_minutes = mins - 1
+                    seconds--;
+                    counter.innerHTML = "timer : " + current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+                    if (seconds > 0) {
+                        setTimeout(tick, 1000);
+                    } else {
+                        if (mins > 1) {
+                            countdown(mins - 1);
+                        }
+                    }
+                }
+                tick();
+            }
+            countdown(1);
+
+            let attempts = 5;
+
+
+            let i = 1;
+            let body = document.getElementsByTagName("body")[0];
+            var amt = document.getElementById("attemp");
+            for (i; i <= 50; i++) {
+                let button = document.createElement("button");
+                button.innerHTML = i;
+                button.setAttribute('id', 'i');
+                body.appendChild(button);
+                button.setAttribute('class', 'btn');
+                amt.innerHTML = "attempts " + attempts;
+                button.addEventListener("click", function () {
+
+
+                    amt.innerHTML = "attempts " + attempts;
+                    console.log(attempts);
+                    innerHTML = number;
+                    console.log(innerHTML);
+
+
+                    if (attempts >= 1) {
+
+                        if (this.innerHTML == innerHTML) {
+                            this.style.backgroundColor = "#220ce7";
+                            attempts = 0;
+                            return;
+                        }
+                        if (this.innerHTML > innerHTML) {
+                            this.style.backgroundColor = "#eb3d08";
+                            attempts--;
+
+                        }
+                        if (this.innerHTML < innerHTML) {
+                            this.style.backgroundColor = "#07b824";
+                            attempts--;
+
+                        }
+
+                    }
+                });
+
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

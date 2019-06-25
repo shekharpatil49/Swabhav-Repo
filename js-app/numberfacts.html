@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head>
+  
+</head>
+
+<body>
+    <input style="width:30px" id="input_id" type="number"></input>
+    <button id="btn_id">generate fact</button>
+
+</body>
+<script>
+
+    (function () {
+        var webData = "";
+        var btn = document.querySelector('#btn_id');
+        
+
+        btn.addEventListener("click", getMefacts);
+
+        function getMefacts() {
+            var no = document.getElementById("input_id").value;
+            
+            makeRequestForPage(no)
+            .then(function(no){
+                  console.log(r);
+            });
+            
+        }
+        function makeRequestForPage(no) {
+            var request = new XMLHttpRequest();
+            console.log(no);
+            return new Promise(function (resolve, reject) { 
+                var no = document.getElementById("input_id").value;
+                    if (no!=0) { 
+                        request.onreadystatechange = function (){ 
+                        var site = 'http://numbersapi.com/' + no;
+                        console.log(site);
+                        request.onreadystatechange = function () {
+                            console.log(request.status);
+                            if (request.readyState == 4) {
+                                if (request.status == 200) {
+                                    
+                                    webData += request.responseText;
+                                }
+                                if (request.status == 404) {
+                                    console.log("Cannot find the file")
+                                }
+                            }
+                        }
+                        request.open('GET', site);
+                        request.send();
+                        resolve(webData);
+                    }
+                }
+                     else {
+                        reject({ status: 'Not executed' });
+                    }
+
+            });
+        };
+    })();
+</script>
+
+</html>

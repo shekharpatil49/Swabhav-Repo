@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+    </body>
+    <script>
+        (function(){
+
+            function cubeEven(no){
+
+                return new Promise(function(resolve,reject){
+                    if(no%2==0){
+                        resolve(no*no*no);
+                    }
+                    else{
+                        reject({msg:'No even no'});
+                    }
+                })
+
+            }
+            cubeEven(2)
+            .then(function(r){
+                console.log(r);
+            })
+            .catch(function(e){
+                console.log(e);
+            })
+
+            console.log("End of script");
+        })();
+    </script>
+</html>

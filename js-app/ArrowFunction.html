@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    
+    </body>
+    <script>
+        (function(){
+        function Employee(firstName,lastName){
+            this.firstName=firstName;
+            this.lastName=lastName;
+            this.display=function(){
+                var that=this;
+                setTimeout(function(){
+                    console.log(that);
+                    console.log(that.firstName);
+                },2000);
+            }
+        }
+        var e1=new Employee("Shekhar","Patil");
+        e1.display();
+
+        var f1=()=>{
+            console.log("Inside Aerrow");
+            return "Hello";
+        }
+        console.log(f1());
+        var f2 =()=>"hello Again";
+
+        console.log(f2());
+
+        function getData(callback){
+            var r = Math.random()*100;
+            callback(r);
+        }
+
+        getData((r)=>{
+            console.log("Inside Callback");
+            console.log(r);
+
+        });
+
+        function Student(firstName,lastName){
+            this.firstName=firstName;
+            this.lastName=lastName;
+            this.display=()=>{
+                setTimeout(()=>{
+
+                    console.log(this.firstName);
+                    console.log(this.lastName);
+    
+                },3000);
+            }
+            };
+            var s1=new Student("abc","pqr");
+            s1.display();
+        
+
+        })();
+    </script>
+</html>

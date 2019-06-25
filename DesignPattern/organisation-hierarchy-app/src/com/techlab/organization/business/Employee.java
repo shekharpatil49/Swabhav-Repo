@@ -14,9 +14,11 @@ public class Employee implements Comparable<Employee>  {
 	private String commission;
 	private int departmentNumber;
 	private int level=0;
+	private List<Employee> subordinates =new ArrayList();
 
 
-	public Employee(int empID, String empName, String designation, String maganerID, String dateOfJoining, int salary,
+	public Employee(int empID, String empName, String designation, String maganerID, 
+			String dateOfJoining, int salary,
 			String commission, int departmentNumber) {
 
 		this.empID = empID;
@@ -27,6 +29,11 @@ public class Employee implements Comparable<Employee>  {
 		this.salary = salary;
 		this.commission = commission;
 		this.departmentNumber = departmentNumber;
+	}
+
+	@Override
+	public String toString() {
+		return " empName= " + empName;
 	}
 
 	public Employee() {

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student Service</title>
+    <script src="angular.js"></script>
+    <script>
+        angular.module('myApp', [])
+            .factory('StudentService', ['$http', function ($http) {
+                var obj = {}
+                obj.getStudentDetails = function () {
+                    return $http.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students");
+                }
+
+                obj.getByID = function (id) {
+
+                    return $http.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + id);
+
+                }
+                obj.update = function (idfetched, studentODT) {
+
+                    return $http.put("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + idfetched, studentODT)
+                }
+                obj.add = function (studentData) {
+                    return $http.post("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/", studentData)
+                }
+                obj.deleteMydata = function (id) {
+                    return $http.delete("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + id);
+                }
+                return obj;
+            }])
+            .controller('studnetServiceController', ['$scope', 'StudentService', function ($scope, StudentService) {
+                $scope.isDisplay = false;
+                StudentService.getStudentDetails()
+                    .then((r) => {
+                        $scope.student = r.data;
+                    })
+
+                $scope.display = function () {
+                    $scope.isDisplay = true;
+
+                }
+                let idfetched;
+                $scope.passID = function (id) {
+                    idfetched = id;
+                    StudentService.getByID(id)
+                        .then((r) => {
+
+                            studentArray = r.data;
+                            $scope.name = studentArray[0].name;
+                            $scope.roll_no = studentArray[0].rollNo;
+                            $scope.age = studentArray[0].age;
+                            $scope.email = studentArray[0].email;
+                            $scope.date = studentArray[0].date;
+                            if (studentArray[0].isMale) {
+                                $scope.male = "male";
+                            }
+                            else {
+                                $scope.female = "female";
+                            }
+
+                        })
+
+                }
+                $scope.deleteData = function (id) {
+
+                    StudentService.deleteMydata(id)
+                        .then((r) => {
+
+                        })
+                }
+                $scope.addData = function () {
+
+                    var studentData = {
+                        "rollNo": $scope.roll_no,
+                        "name": $scope.name,
+                        "age": $scope.age,
+                        "email": $scope.email,
+                        "date": $scope.date,
+                        "isMale": true
+                    }
+                    StudentService.add(studentData)
+                        .then((r) => {
+
+                        })
+
+                }
+
+                $scope.updateData = function () {
+                    console.log(idfetched);
+                    var studentODT = {
+
+                        "rollNo": $scope.roll_no,
+                        "name": $scope.name,
+                        "age": $scope.age,
+                        "email": $scope.email,
+                        "date": $scope.date,
+                        "isMale": true
+                    }
+                    StudentService.update(idfetched, studentODT)
+                        .then((r) => {
+                            console.log(r);
+                        })
+
+                }
+
+
+            }])
+            .filter("genderFilter", [function () {
+                return function (x) {
+                    if (x == true) {
+                        return "Male";
+                    }
+                    else {
+                        return "Female";
+                    }
+                }
+            }])
+
+
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="studnetServiceController">
+        <button ng-click="display()">Display Data</button><br>
+        <div ng-show="isDisplay">
+            <label> Number of student : {{ student.length }}</label>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>roll_no</th>
+                    <th>age</th>
+                    <th>email</th>
+                    <th>date</th>
+                    <th>Gender</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+
+                </tr>
+                <tr ng-repeat="x in student">
+                    <td>{{x.id}}</td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.rollNo}}</td>
+                    <td>{{x.age}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.date}}</td>
+                    <td>{{x.isMale | genderFilter }}</td>
+                    <td><button ng-click="passID(x.id)"> Edit</button></td>
+                    <td><button ng-click="deleteData(x.id)"> delete</button></td>
+
+
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="container">
+            Student Count&nbsp&nbsp&nbsp<span id="span_id" class="label label-info">Info</span>
+            <form class="form-horizontal" name="myform">
+                <div class="form-group">
+                    <label for="roll_no" class="col-sm-2 control-label">Roll_No</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="Roll_No" ng-model="roll_no">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age" class="col-sm-2 control-label">Age</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" ng-model="age" placeholder="Age">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="address" class="form-control" ng-model="email" placeholder="Email"
+                            required>
+                        Valid: {{myform.address.$valid}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="date" placeholder="Date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="male" value="male"> Male
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="female" value="female"> Female
+                    </label>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" ng-click="addData()" class="btn btn-default">Add Data</button>
+                        <button type="button" ng-click="updateData()" id="update" class="btn btn-default">Update
+                            Data</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

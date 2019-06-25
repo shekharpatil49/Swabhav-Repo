@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.4.1.js"></script>
+    <title>Bootstrap Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <input style="width:30px" id="input_id" type="number"></input>
+    <button id="btn_id">generate fact</button>
+    <button id="displayLog">Display Previous Search</button>
+    <p id="prgph_id"></p>
+    <p id="search_prgph"></p>
+    <div id="div_id" class="spinner-border" style='display: none'></div>
+</body>
+<script>
+
+    (function () {
+        var logArray=[];
+        var newDataArray=[];
+        var counter=0;
+        $('#btn_id').click(function () {
+            //logArray = localStorage.getItem("log"); 
+             var no = $('#input_id').val();
+             $('#div_id').show();
+             setTimeout(function(){
+            $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "http://numbersapi.com/"+no,
+                    
+                    success: function (response) {
+                        $('#div_id').hide();
+                        $('#prgph_id').html(response);
+                    }
+                   
+                    
+                });
+            },5000);
+
+           
+           /* console.log(no);
+            makeRequestForPage(no)
+                .then(function (r) {
+                    counter++;
+                    $('#prgph_id').html(r);
+                   /* if(counter==1){
+                        newDataArray.push(logArray); 
+                        newDataArray.push("<li>"+r+"</li>"); 
+                    }
+                    else{
+                        newDataArray.push(r);
+                    }
+                    
+                    localStorage.setItem('log',newDataArray);*/
+                });
+               
+        })();
+        
+    /*    var makeRequestForPage =  (no)=> {
+            var request = new XMLHttpRequest();
+            var no = $('#input_id').val();
+            console.log(parseInt(no)==1)
+            return new Promise(function (resolve, reject) {
+                if (no) {
+               console.log(no);
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        resolve(xmlhttp.responseText);
+                    }
+                }
+                xmlhttp.open("GET", "http://numbersapi.com/" + no);
+                xmlhttp.send();
+            }
+            else {
+                reject('invalid number');
+            }
+            });
+        };
+        $('#displayLog').click(function(){
+            logArray = localStorage.getItem("log"); 
+            $('#search_prgph').html(logArray);
+        });
+*/
+ //   })();
+</script>
+
+</html>
