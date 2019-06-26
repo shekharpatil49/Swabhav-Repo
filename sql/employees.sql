@@ -44,3 +44,26 @@ select*,date_format(from_days(datediff(current_date(),hiredate)),'%Y')+0 as expe
 -- display unique department no from employee table
 
 select distinct deptno from emp; 
+
+-- display salary of scott
+
+select  sal
+from emp
+where ename ="Scott";
+
+-- display all employees who has same salary as scott
+
+select* 
+from emp
+ where sal = (select sal from emp where ename="SCOTT" )
+ 
+ -- display all employees who are working with same department number as blake
+ 
+ select* 
+from emp
+ where deptno = (select deptno from emp where ename="blake" );
+ 
+ -- display the number of employees , average of salary ,sum of salary
+ 
+ select count(empno) ,avg(sal),sum(sal) from emp;
+
