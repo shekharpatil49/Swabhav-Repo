@@ -1,4 +1,3 @@
-
 -- display all employee by assending order
 select *
 from emp

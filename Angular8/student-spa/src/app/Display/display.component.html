@@ -1,0 +1,55 @@
+<style>
+        #customers {
+          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #customers tr:hover {background-color: #ddd;}
+        
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #4CAF50;
+          color: white;
+        }
+        </style>
+
+<input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+
+<table id="customers" >
+        <tr>
+            <th >ID</th>
+            <th >Name</th>
+            <th >roll_no</th>
+            <th>age</th>
+            <th >email</th>
+            <th >date</th>
+            <th >Gender</th>
+            <th >Edit</th>
+            <th > Delete</th>
+
+        </tr>
+        <tr *ngFor="let x of result  | searchFilter: {name: searchText}; let i=index;">
+            <td >{{x.id}}</td>
+            <td >{{x.name}}</td>
+            <td >{{x.rollNo}}</td>
+            <td >{{x.age}}</td>
+            <td >{{x.email}}</td>
+            <td >{{x.date}}</td>
+            <td>{{x.isMale | ismale1}}</td>
+            <td><button [routerLink]="['/edit',x.id]" class="btn btn-success glyphicon glyphicon-pencil"></button> </td>
+            <td><button (click)="deleteData(x.id)" class="btn btn-danger glyphicon glyphicon-trash"></button> </td>
+         
+
+
+        </tr>
+    </table>

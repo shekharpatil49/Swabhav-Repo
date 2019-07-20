@@ -1,0 +1,39 @@
+
+<!--<div>
+    <br>
+   <p [style.font-size.px]="fontSize" [style.font-style]="Style" [style.background-color]="bgColor" [style.color]="Color" >{{name}} </p>
+    <input type="text" [(ngModel)]="name">
+    Select font Size:
+    <input type="number" [(ngModel)]="fontSize">
+    <br>
+    Select Font Color 
+    <select [(ngModel)]="Color">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="cyan">Cyan</option>
+     
+    </select>
+    Select font style
+    <select [(ngModel)]="Style">
+        <option value="normal">Normal</option>
+        <option value="italic">Italics</option>
+    </select>
+    <br>
+    Select background Colour
+    <select [(ngModel)]="bgColor">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="cyan">Cyan</option>
+    </select>
+    <br>
+
+</div>-->
+
+<div>
+<input type="number" [ngModel]="no" (ngModelChange)="getFact($event)" >
+<p>{{result}}</p>
+</div>
+
+
+
+

@@ -1,0 +1,12 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+<nav class="nav-bar">
+  <a [routerLink] ="'home'" >home</a>
+  <a [routerLink] ="'about'" >about</a>
+  <a [routerLink] ="'career'">career</a>
+  <a [routerLink] ="['career','1']">career</a>
+</nav>
+<router-outlet></router-outlet>
